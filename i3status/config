@@ -1,0 +1,67 @@
+general {
+	output_format = "i3bar"
+        colors = true
+        interval = 1
+}
+
+order += "ethernet enp6s0"
+order += "disk /"
+order += "cpu_temperature 0"
+order += "cpu_temperature 1"
+order += "cpu_temperature 2"
+order += "cpu_temperature 3"
+order += "memory"
+order += "volume master"
+order += "tztime local"
+
+ethernet enp6s0 {
+        format_up = "E: %ip (%speed)"
+        format_down = "E: down"
+}
+
+volume master {
+	format = "♪: %volume"
+        format_muted = "♪: muted (%volume)"
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
+}
+
+tztime local {
+        format = "%a %b %-d %Y %I:%M:%S %p"
+        hide_if_equals_localtime = false
+}
+
+cpu_temperature 0 {
+        format = "Core 1: %degrees °C"
+        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input"
+}
+
+cpu_temperature 1 {
+        format = "Core 2: %degrees °C"
+        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp2_input"
+}
+
+cpu_temperature 2 {
+        format = "Core 3: %degrees °C"
+        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp3_input"
+}
+
+cpu_temperature 3 {
+        format = "Core 4: %degrees °C"
+        path = "/sys/devices/platform/coretemp.0/hwmon/hwmon2/temp4_input"
+}
+
+memory {
+        format = "RAM: %used/%total"
+        threshold_degraded = "10%"
+        format_degraded = "MEMORY: %free"
+}
+
+disk "/" {
+        format = "SSD: %used/%total"
+}
+
+read_file uptime {
+        path = "/proc/uptime"
+}
