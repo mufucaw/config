@@ -1,0 +1,27 @@
+#!/sbin/openrc-run
+
+description="Starts yarr"
+
+depend()
+{
+        need docker
+}
+
+start()
+{
+        ebegin "Starting yarr"
+        cd /home/yarr/yarr
+        docker compose up -d
+        eend $? "Error starting yarr"
+        return 0
+}
+
+stop()
+{
+        ebegin "Stopping yarr"
+        cd /home/yarr/yarr
+        docker compose down
+        eend $? "Error stopping yarr"
+        return 0
+}
+

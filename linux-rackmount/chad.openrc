@@ -1,0 +1,27 @@
+#!/sbin/openrc-run
+
+description="Starts Coinbase Historical API Data (chad)"
+
+depend()
+{
+        need docker
+}
+
+start()
+{
+        ebegin "Starting chad"
+        cd /home/chad/chad
+        docker compose up -d
+        eend $? "Error starting chad"
+        return 0
+}
+
+stop()
+{
+        ebegin "Stopping chad"
+        cd /home/chad/chad
+        docker compose down
+        eend $? "Error stopping chad"
+        return 0
+}
+
